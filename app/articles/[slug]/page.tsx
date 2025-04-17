@@ -4,7 +4,11 @@ import ArticleContent from '@/components/ArticleContent';
 import { notFound } from 'next/navigation';
 
 // Generate metadata dynamically based on the article
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}): Promise<Metadata> {
   // Await params before accessing its properties
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
@@ -22,7 +26,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 // Article detail page
-export default async function ArticleDetailPage({ params }: { params: { slug: string } }) {
+export default async function ArticleDetailPage({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}) {
   // Await params before accessing its properties
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
