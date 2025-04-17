@@ -3,7 +3,8 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 
 export async function getSession() {
-  const supabase = createClient()
+  // Await the supabase client
+  const supabase = await createClient()
   
   const { data: { session }, error } = await supabase.auth.getSession()
   
@@ -15,7 +16,8 @@ export async function getSession() {
 }
 
 export async function getUserDetails() {
-  const supabase = createClient()
+  // Await the supabase client
+  const supabase = await createClient()
   const session = await getSession()
   
   if (!session) {
@@ -53,7 +55,8 @@ export async function requireAdmin() {
     redirect('/login')
   }
   
-  const supabase = createClient()
+  // Await the supabase client
+  const supabase = await createClient()
   const { data: user, error } = await supabase
     .from('users')
     .select('role')
