@@ -4,7 +4,6 @@
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { createBrowserClient } from '@supabase/ssr'
 import { createClient } from '@/lib/supabase/client'
 import { Loader2, Menu, X, Home, FileText, Calendar, Users, Settings, LogOut } from 'lucide-react'
 import type { User } from '@/lib/types'

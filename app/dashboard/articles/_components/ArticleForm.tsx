@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClient } from '@/lib/supabase/client'
 import { Loader2, Save, X } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import type { Article, Tag } from '@/lib/types'
@@ -21,7 +21,7 @@ type ArticleFormProps = {
 
 export default function ArticleForm({ article, isEditing = false }: ArticleFormProps) {
   const router = useRouter()
-  const supabase = createClientComponentClient()
+  const supabase = createClient()
   
   // Form state
   const [title, setTitle] = useState(article?.title || '')

@@ -3,7 +3,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClient } from '@/lib/supabase/client'
 import { Trash2, Loader2 } from 'lucide-react'
 
 type DeleteArticleButtonProps = {
@@ -13,7 +13,7 @@ type DeleteArticleButtonProps = {
 export default function DeleteArticleButton({ articleId }: DeleteArticleButtonProps) {
   const [isDeleting, setIsDeleting] = useState(false)
   const router = useRouter()
-  const supabase = createClientComponentClient()
+  const supabase = createClient()
   
   const handleDelete = async () => {
     try {
