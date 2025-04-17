@@ -5,7 +5,11 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 // Generate metadata dinamis berdasarkan tag
-export async function generateMetadata({ params }: { params: { tagName: string } }): Promise<Metadata> {
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ tagName: string }> 
+}): Promise<Metadata> {
   const { tagName } = await params;
   const decodedTagName = decodeURIComponent(tagName);
 
@@ -29,7 +33,11 @@ export async function generateStaticParams() {
   }
 }
 
-export default async function TagEventsPage({ params }: { params: { tagName: string } }) {
+export default async function TagEventsPage({ 
+  params 
+}: { 
+  params: Promise<{ tagName: string }> 
+}) {
   const { tagName } = await params;
   const decodedTagName = decodeURIComponent(tagName);
 
