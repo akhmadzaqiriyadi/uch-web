@@ -1,11 +1,13 @@
 import { getArticleBySlug, getPublishedArticles } from '@/lib/articles';
+import { Metadata } from 'next';
 import ArticleContent from '@/components/ArticleContent';
 import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
 
-// Generate metadata dinamis berdasarkan artikel
+// Generate metadata dynamically based on the article
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const article = await getArticleBySlug(params.slug);
+  // Await params before accessing its properties
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
   
   if (!article) {
     return {
@@ -15,21 +17,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   
   return {
     title: `${article.title} - CMS Kampus`,
-    description: article.content?.substring(0, 160) || 'Baca artikel lengkap di CMS Kampus'
+    description: article.content?.substring(0, 160) || 'Baca artikel lengkap di CMS Kampus',
   };
 }
 
-// Pre-render halaman artikel yang ada
-export async function generateStaticParams() {
-  const articles = await getPublishedArticles();
-  
-  return articles.map((article) => ({
-    slug: article.slug,
-  }));
-}
-
+// Article detail page
 export default async function ArticleDetailPage({ params }: { params: { slug: string } }) {
-  const article = await getArticleBySlug(params.slug);
+  // Await params before accessing its properties
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
   
   if (!article || article.status !== 'published') {
     notFound();
