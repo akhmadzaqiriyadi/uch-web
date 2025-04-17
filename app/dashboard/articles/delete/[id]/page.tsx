@@ -1,20 +1,27 @@
 // app/dashboard/articles/delete/[id]/page.tsx
-import { createClient } from '@/lib/supabase/server'
-import { notFound } from 'next/navigation'
-import DeleteArticleButton from '../../_components/DeleteArticleButton'
+import { createClient } from "@/lib/supabase/server";
+import { notFound } from "next/navigation";
+import DeleteArticleButton from "../../_components/DeleteArticleButton";
 
-export default async function DeleteArticlePage({ params }: { params: { id: string } }) {
-  const supabase = await createClient()
-  
+export default async function DeleteArticlePage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const supabase = await createClient();
+
+  // Await params before accessing the id
+  const { id } = await params;
+
   // Fetch the article to confirm it exists
   const { data: article, error } = await supabase
-    .from('articles')
-    .select('id, title')
-    .eq('id', params.id)
-    .single()
+    .from("articles")
+    .select("id, title")
+    .eq("id", id)
+    .single();
 
   if (error || !article) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -36,9 +43,9 @@ export default async function DeleteArticlePage({ params }: { params: { id: stri
           >
             Cancel
           </a>
-          <DeleteArticleButton articleId={params.id} />
+          <DeleteArticleButton articleId={id} />
         </div>
       </div>
     </div>
-  )
+  );
 }

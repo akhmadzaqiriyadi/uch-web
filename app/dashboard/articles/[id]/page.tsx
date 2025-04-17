@@ -7,14 +7,17 @@ export const metadata = {
   description: 'Edit an article in CMS Kampus'
 }
 
-export default async function EditArticlePage({ params }: { params: { id: string } }) {
+export default async function EditArticlePage({ params }: { params: Promise<{ id: string }> }) {
   const supabase = await createClient()
+  
+  // Await params before accessing properties
+  const { id } = await params
 
   // Fetch the article
   const { data: article, error } = await supabase
     .from('articles')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single()
 
   if (error || !article) {

@@ -4,8 +4,13 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 // Generate metadata dinamis berdasarkan event
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const event = await getEventById(params.id);
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ id: string }> 
+}): Promise<Metadata> {
+  const { id } = await params;
+  const event = await getEventById(id);
   
   return {
     title: `${event.title} - CMS Kampus`,
@@ -13,8 +18,13 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   };
 }
 
-export default async function EventPage({ params }: { params: { id: string } }) {
-  const event = await getEventById(params.id);
+export default async function EventPage({ 
+  params 
+}: { 
+  params: Promise<{ id: string }> 
+}) {
+  const { id } = await params;
+  const event = await getEventById(id);
   
   return (
     <main className="container mx-auto px-4 py-8">
