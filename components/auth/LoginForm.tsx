@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { createBrowserClient } from '@supabase/ssr'
 
 export default function LoginForm() {
   const [email, setEmail] = useState('')
@@ -13,25 +13,28 @@ export default function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const redirectTo = searchParams.get('redirectedFrom') || '/dashboard'
-  
-  const supabase = createClientComponentClient()
-  
+
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
     setLoading(true)
-    
+
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
-        password
+        password,
       })
-      
+
       if (error) {
         setError(error.message)
         return
       }
-      
+
       router.push(redirectTo)
       router.refresh()
     } catch (err) {
@@ -45,13 +48,13 @@ export default function LoginForm() {
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
-      
+
       {error && (
         <div className="bg-red-100 text-red-700 p-3 rounded-md mb-4">
           {error}
         </div>
       )}
-      
+
       <form onSubmit={handleLogin}>
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 mb-2">
@@ -66,7 +69,7 @@ export default function LoginForm() {
             required
           />
         </div>
-        
+
         <div className="mb-6">
           <label htmlFor="password" className="block text-gray-700 mb-2">
             Password
@@ -80,7 +83,7 @@ export default function LoginForm() {
             required
           />
         </div>
-        
+
         <button
           type="submit"
           disabled={loading}
@@ -91,7 +94,7 @@ export default function LoginForm() {
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
-      
+
       <div className="mt-4 text-center">
         <p className="text-sm text-gray-600">
           Don't have an account?{' '}

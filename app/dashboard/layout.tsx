@@ -4,7 +4,8 @@
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createBrowserClient } from '@supabase/ssr'
+import { createClient } from '@/lib/supabase/client'
 import { Loader2, Menu, X, Home, FileText, Calendar, Users, Settings, LogOut } from 'lucide-react'
 import type { User } from '@/lib/types'
 
@@ -19,7 +20,7 @@ export default function DashboardLayout({
   const [loading, setLoading] = useState(true)
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const pathname = usePathname()
-  const supabase = createClientComponentClient()
+  const supabase = createClient()
 
   useEffect(() => {
     async function loadUserProfile() {
