@@ -42,7 +42,7 @@ const Navbar = () => {
             <div className="flex items-center">
               <Link href="/" className="flex items-center">
                 <Image
-                  src="/logo.svg"
+                  src="/images/uch.png"
                   alt="UTY Creative Hub Logo"
                   width={50}
                   height={50}
