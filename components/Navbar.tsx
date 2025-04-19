@@ -148,7 +148,7 @@ const Navbar = () => {
                 Program
               </Link>
               <Link 
-                href="/news" 
+                href="/articles" 
                 className="block px-4 py-2 text-gray-700 hover:bg-blue-100 rounded-lg"
                 onClick={() => setIsMenuOpen(false)}
               >
