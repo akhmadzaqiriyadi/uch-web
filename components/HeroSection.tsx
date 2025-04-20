@@ -20,7 +20,7 @@ export default function HeroSection() {
         <div className="flex flex-col md:flex-row items-center justify-between">
           {/* Left Content - Text with animations */}
           <motion.div
-            className="w-full md:w-1/2 mb-64 lg:mb-32 z-10"
+            className="w-full md:w-1/2 mb-72 lg:mb-32 z-10"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
