@@ -5,6 +5,7 @@ import ArticleCard from "@/components/ArticleCard";
 import EventCard from "@/components/EventCard";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
+import TeamSection from "@/components/TeamSection";
 
 // Ini akan memastikan halaman selalu memuat data terbaru
 export const dynamic = "force-dynamic";
@@ -24,6 +25,7 @@ export default async function HomePage() {
     <>
     <HeroSection />
     <AboutSection />
+    <TeamSection />
       <main className="container mx-auto px-4 py-8">
         <section className="mb-12">
           <div className="flex justify-between items-center mb-6">
