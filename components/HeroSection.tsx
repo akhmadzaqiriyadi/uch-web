@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const floatingAnimation = {
   float: {
-    y: [0, -35, 0],
+    y: [0, -15, 0],
     transition: {
       duration: 4,
       ease: "easeInOut",
