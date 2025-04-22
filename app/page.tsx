@@ -25,7 +25,6 @@ export default async function HomePage() {
     <>
     <HeroSection />
     <AboutSection />
-    <TeamSection />
       <main className="container mx-auto px-4 py-8">
         <section className="mb-12">
           <div className="flex justify-between items-center mb-6">
