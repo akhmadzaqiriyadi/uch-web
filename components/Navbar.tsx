@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar } from 'lucide-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -124,7 +125,7 @@ const Navbar = () => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
                 >
-                  <div className="">UGM</div>
+                  <div className="">UTY</div>
                   <div className="">CREATIVE</div>
                   <div className="">HUB</div>
                 </motion.div>
@@ -136,7 +137,7 @@ const Navbar = () => {
               {[
                 { href: "/", label: "Home" },
                 { href: "/about", label: "About Us" },
-                { href: "/program", label: "Program" },
+                { href: "/programs", label: "Program" },
                 { href: "/articles", label: "News" },
                 { href: "/events", label: "Events" }
               ].map((item, i) => (
@@ -162,7 +163,7 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Contact Button with animation */}
+            {/* Booking Button with animation */}
             <motion.div 
               className="hidden md:flex"
               initial={{ opacity: 0, x: 20 }}
@@ -170,8 +171,8 @@ const Navbar = () => {
               transition={{ delay: 0.5, duration: 0.5 }}
             >
               <Link 
-                href="/contact" 
-                className={`bg-[#2E417A] text-white px-4 py-3 rounded-xl hover:bg-blue-800 transition-colors flex items-center ${
+                href="https://uchbooking.vercel.app/" 
+                className={`bg-[#2E417A] text-white px-4 py-3 rounded-xl hover:bg-blue-950 transition-colors flex items-center ${
                   scrolled ? 'py-2.5' : 'py-3'
                 }`}
               >
@@ -180,14 +181,8 @@ const Navbar = () => {
                   whileTap={{ scale: 0.95 }}
                   className="flex items-center"
                 >
-                  <Image
-                    src="/lucide/phone.svg"
-                    alt="Phone icon"
-                    width={18}
-                    height={18}
-                    className="mr-2"
-                  />
-                  Contact
+                  <Calendar size={18} className="mr-2" />
+                  Book Now
                 </motion.div>
               </Link>
             </motion.div>
@@ -246,7 +241,7 @@ const Navbar = () => {
                 {[
                   { href: "/", label: "Home" },
                   { href: "/about", label: "About Us" },
-                  { href: "/program", label: "Program" },
+                  { href: "/programs", label: "Program" },
                   { href: "/articles", label: "News" },
                   { href: "/events", label: "Events" }
                 ].map((item, i) => (
@@ -266,18 +261,12 @@ const Navbar = () => {
                 ))}
                 <motion.div variants={menuItemVariants}>
                   <Link 
-                    href="/contact" 
+                    href="https://uchbooking.vercel.app/" 
                     className="flex items-center px-4 py-2 bg-[#2E417A] text-white rounded-lg"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <Image
-                      src="/lucide/phone.svg"
-                      alt="Phone icon"
-                      width={18}
-                      height={18}
-                      className="mr-2"
-                    />
-                    Contact
+                    <Calendar size={18} className="mr-2" />
+                    Book Now
                   </Link>
                 </motion.div>
               </div>

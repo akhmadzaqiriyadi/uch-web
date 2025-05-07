@@ -72,6 +72,9 @@ export default function TeamSection() {
     },
   ];
 
+  // Get the total number of possible positions for the carousel
+  const maxPositions = Math.max(1, teamMembers.length - cardsPerView + 1);
+
   // Handle responsive behavior
   useEffect(() => {
     const handleResize = () => {
@@ -96,27 +99,30 @@ export default function TeamSection() {
   // Auto scroll effect
   useEffect(() => {
     const interval = setInterval(() => {
-      const maxIndex = teamMembers.length - cardsPerView;
       setCurrentIndex((prevIndex) =>
-        prevIndex >= maxIndex ? 0 : prevIndex + 1
+        prevIndex >= maxPositions - 1 ? 0 : prevIndex + 1
       );
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [teamMembers.length, cardsPerView]);
+  }, [maxPositions]);
 
   // Manual navigation
-  const scrollTo = (direction: "next" | "prev") => {
-    const maxIndex = teamMembers.length - cardsPerView;
+  const scrollTo = (direction: string) => {
     if (direction === "next") {
       setCurrentIndex((prevIndex) =>
-        prevIndex >= maxIndex ? 0 : prevIndex + 1
+        prevIndex >= maxPositions - 1 ? 0 : prevIndex + 1
       );
     } else {
       setCurrentIndex((prevIndex) =>
-        prevIndex <= 0 ? maxIndex : prevIndex - 1
+        prevIndex <= 0 ? maxPositions - 1 : prevIndex - 1
       );
     }
+  };
+
+  // Jump to specific position
+  const jumpToPosition = (index: number) => {
+    setCurrentIndex(index);
   };
 
   return (
@@ -166,9 +172,7 @@ export default function TeamSection() {
             <div
               className="flex gap-4 transition-all duration-500 ease-in-out"
               style={{
-                transform: `translateX(-${
-                  currentIndex * (100 / teamMembers.length)
-                }%)`,
+                transform: `translateX(-${currentIndex * (100 / teamMembers.length)}%)`,
                 width: `${(teamMembers.length * 100) / cardsPerView}%`,
               }}
             >
@@ -235,14 +239,12 @@ export default function TeamSection() {
           </button>
         </div>
 
-        {/* Indicator dots */}
+        {/* Indicator dots - FIXED */}
         <div className="flex justify-center mt-6 space-x-2">
-          {Array.from({
-            length: Math.ceil(teamMembers.length / cardsPerView),
-          }).map((_, index) => (
+          {Array.from({ length: maxPositions }).map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
+              onClick={() => jumpToPosition(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 currentIndex === index
                   ? "bg-[#2E417A] scale-125"

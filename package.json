@@ -21,6 +21,7 @@
     "next": "^15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-intersection-observer": "^9.16.0",
     "react-markdown": "^10.1.0",
     "tiptap-markdown": "^0.8.10"
   },

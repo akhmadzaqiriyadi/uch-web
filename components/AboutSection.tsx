@@ -1,11 +1,11 @@
-// components/AboutUsSection.jsx
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
 export default function AboutUsSection() {
   const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   // Animation variants
   const containerAnimation = {
@@ -24,10 +24,13 @@ export default function AboutUsSection() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
-  // Extract the file ID from the Google Drive URL
-  const driveFileId = "1GH0L5z2pNL29ECYQaUaAEsXwN5tC67Cd";
-  // Create the embed URL
+  // Google Drive Video Embed URL (tanpa autoplay)
+  const driveFileId = "16Ku7491nu4LqQccb5rvv6qx2VVESJpq0";
   const driveEmbedUrl = `https://drive.google.com/file/d/${driveFileId}/preview`;
+
+  const handlePlay = () => {
+    setIsPlaying(true);
+  };
 
   return (
     <section className="pt-32 pb-8 lg:pt-44 lg:pb-32 bg-[#2E417A] overflow-hidden">
@@ -102,15 +105,36 @@ export default function AboutUsSection() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <div className="aspect-w-16 aspect-h-10">
+            <div className="aspect-w-16 aspect-h-10 relative">
               <iframe
+                ref={videoRef}
                 className="w-full h-[300px] md:h-[400px] rounded-lg"
                 src={driveEmbedUrl}
                 title="UTY Creative Hub Profile Video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                frameBorder="0"
               ></iframe>
+
+              {!isPlaying && (
+                <div
+                  className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 cursor-pointer"
+                  onClick={handlePlay}
+                >
+                  <div className="absolute inset-0 w-full h-full object-cover rounded-lg bg-blue-50" />
+                  <div className="relative flex items-center justify-center">
+                    <div className="bg-yellow-400 text-[#2E417A] px-6 py-3 rounded-lg font-medium flex items-center gap-2">
+                      <svg
+                        className="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                      <span>Let's Play</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </motion.div>
         </div>
